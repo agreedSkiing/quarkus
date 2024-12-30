@@ -31,6 +31,8 @@ import io.quarkus.runtime.LaunchMode;
 public class OracleDevServicesProcessor {
 
     private static final Logger LOG = Logger.getLogger(OracleDevServicesProcessor.class);
+    private static final String DEV_SERVICE_LABEL = "quarkus-dev-service-oracle";
+    private static final int ORACLE_PORT = 1521;
 
     /**
      * This is the container name as defined by the Testcontainer's OracleContainer:

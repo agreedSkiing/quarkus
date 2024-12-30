@@ -137,4 +137,30 @@ public interface DevServicesBuildTimeConfig {
     @WithDefault("false")
     boolean showLogs();
 
+    /**
+     * Determines if the database container is shared.
+     * <p>
+     * When shared, Quarkus uses label-based service discovery to find and reuse a running database container, so a second one
+     * is not started.
+     * Otherwise, if a matching container is not is found, a new container is started.
+     * <p>
+     * The service discovery uses the {@code quarkus-dev-service-label} label, whose value is set by the {@code service-name}
+     * property.
+     * <p>
+     * Container sharing is available only in dev mode.
+     */
+    @WithDefault("true")
+    boolean shared();
+
+    /**
+     * The value of the `quarkus-dev-service-database` label for identifying the database container.
+     * <p>
+     * Used in shared mode to locate an existing container with this label. If not found, a new container is initialized with
+     * this label.
+     * <p>
+     * Applicable only in dev mode.
+     */
+    @WithDefault("database")
+    String serviceName();
+
 }

@@ -36,6 +36,8 @@ import io.quarkus.runtime.LaunchMode;
 public class PostgresqlDevServicesProcessor {
 
     private static final Logger LOG = Logger.getLogger(PostgresqlDevServicesProcessor.class);
+    private static final String DEV_SERVICE_LABEL = "quarkus-dev-service-postgresql";
+    private static final int POSTGRESQL_PORT = 5432;
 
     @BuildStep
     ConsoleCommandBuildItem psqlCommand(DevServicesLauncherConfigResultBuildItem devServices) {

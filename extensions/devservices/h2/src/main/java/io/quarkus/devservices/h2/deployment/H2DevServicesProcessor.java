@@ -28,6 +28,8 @@ import io.quarkus.runtime.LaunchMode;
 public class H2DevServicesProcessor {
 
     private static final Logger LOG = Logger.getLogger(H2DevServicesProcessor.class);
+    private static final String DEV_SERVICE_LABEL = "quarkus-dev-service-h2";
+    private static final int MSSQL_PORT = 8082;
 
     @BuildStep
     DevServicesDatasourceProviderBuildItem setupH2() {

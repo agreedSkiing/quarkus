@@ -31,6 +31,8 @@ import io.quarkus.runtime.LaunchMode;
 public class MySQLDevServicesProcessor {
 
     private static final Logger LOG = Logger.getLogger(MySQLDevServicesProcessor.class);
+    private static final String DEV_SERVICE_LABEL = "quarkus-dev-service-mysql";
+    private static final int MYSQL_PORT = 3306;
 
     public static final String MY_CNF_CONFIG_OVERRIDE_PARAM_NAME = "TC_MY_CNF";
 
@@ -95,15 +97,19 @@ public class MySQLDevServicesProcessor {
     private static class QuarkusMySQLContainer extends MySQLContainer {
         private final OptionalInt fixedExposedPort;
         private final boolean useSharedNetwork;
+        private final boolean sharedContainer;
+        private final String containerLabelValue;
 
         private String hostName = null;
 
-        public QuarkusMySQLContainer(Optional<String> imageName, OptionalInt fixedExposedPort, boolean useSharedNetwork) {
+        public QuarkusMySQLContainer(Optional<String> imageName, OptionalInt fixedExposedPort, boolean useSharedNetwork, String containerLabelValue, boolean sharedContainer) {
             super(DockerImageName
                     .parse(imageName.orElseGet(() -> ConfigureUtil.getDefaultImageNameFor("mysql")))
                     .asCompatibleSubstituteFor(DockerImageName.parse(MySQLContainer.NAME)));
             this.fixedExposedPort = fixedExposedPort;
             this.useSharedNetwork = useSharedNetwork;
+            this.containerLabelValue = containerLabelValue;
+            this.sharedContainer = sharedContainer;
         }
 
         @Override
@@ -119,6 +125,10 @@ public class MySQLDevServicesProcessor {
                 addFixedExposedPort(fixedExposedPort.getAsInt(), MySQLContainer.MYSQL_PORT);
             } else {
                 addExposedPort(MYSQL_PORT);
+            }
+
+            if(sharedContainer && LaunchMode.current() == LaunchMode.DEVELOPMENT) {
+                withLabel(DEV_SERVICE_LABEL, containerLabelValue);
             }
         }
 

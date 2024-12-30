@@ -187,7 +187,8 @@ public class DevServicesDatasourceProcessor {
             res.put(name + ".username", username);
             Optional<String> password = ConfigUtils.getFirstOptionalValue(
                     DataSourceUtil.dataSourcePropertyKeys(name, "password"), String.class);
-            res.put(name + ".password", password);
+            res.put(name + ".devservices.shared", config.devservices().shared());
+            res.put(name + ".devservices.serviceName", config.devservices().serviceName());
         }
         return res;
     }
@@ -289,7 +290,9 @@ public class DevServicesDatasourceProcessor {
                     dataSourceBuildTimeConfig.devservices().initScriptPath(),
                     dataSourceBuildTimeConfig.devservices().volumes(),
                     dataSourceBuildTimeConfig.devservices().reuse(),
-                    dataSourceBuildTimeConfig.devservices().showLogs());
+                    dataSourceBuildTimeConfig.devservices().showLogs(),
+                    dataSourceBuildTimeConfig.devservices().shared(),
+                    dataSourceBuildTimeConfig.devservices().serviceName());
 
             DevServicesDatasourceProvider.RunningDevServicesDatasource datasource = devDbProvider
                     .startDatabase(

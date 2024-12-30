@@ -31,6 +31,8 @@ import io.quarkus.runtime.LaunchMode;
 public class MariaDBDevServicesProcessor {
 
     private static final Logger LOG = Logger.getLogger(MariaDBDevServicesProcessor.class);
+    private static final String DEV_SERVICE_LABEL = "quarkus-dev-service-mariadb";
+    private static final int MARIADB_PORT = 3306;
 
     public static final Integer PORT = 3306;
     public static final String MY_CNF_CONFIG_OVERRIDE_PARAM_NAME = "TC_MY_CNF";

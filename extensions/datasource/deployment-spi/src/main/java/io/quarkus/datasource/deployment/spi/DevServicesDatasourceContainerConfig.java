@@ -19,6 +19,8 @@ public class DevServicesDatasourceContainerConfig {
     private final Map<String, String> volumes;
     private final boolean reuse;
     private final boolean showLogs;
+    private final boolean shared;
+    private final Optional<String> serviceName;
 
     public DevServicesDatasourceContainerConfig(Optional<String> imageName,
             Map<String, String> containerEnv,
@@ -32,7 +34,9 @@ public class DevServicesDatasourceContainerConfig {
             Optional<String> initScriptPath,
             Map<String, String> volumes,
             boolean reuse,
-            boolean showLogs) {
+            boolean showLogs,
+            boolean shared,
+            Optional<String> serviceName) {
         this.imageName = imageName;
         this.containerEnv = containerEnv;
         this.containerProperties = containerProperties;
@@ -46,6 +50,8 @@ public class DevServicesDatasourceContainerConfig {
         this.volumes = volumes;
         this.reuse = reuse;
         this.showLogs = showLogs;
+        this.shared = shared;
+        this.serviceName = serviceName;
     }
 
     public Optional<String> getImageName() {
@@ -98,5 +104,13 @@ public class DevServicesDatasourceContainerConfig {
 
     public boolean isReuse() {
         return reuse;
+    }
+
+    public boolean isShared() {
+        return shared;
+    }
+
+    public Optional<String> getServiceName() {
+        return serviceName;
     }
 }

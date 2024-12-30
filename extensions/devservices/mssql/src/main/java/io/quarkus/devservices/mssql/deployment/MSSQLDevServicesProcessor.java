@@ -19,6 +19,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.DevServicesSharedNetworkBuildItem;
 import io.quarkus.deployment.dev.devservices.DevServicesConfig;
 import io.quarkus.devservices.common.ConfigureUtil;
+import io.quarkus.devservices.common.ContainerLocator;
 import io.quarkus.devservices.common.ContainerShutdownCloseable;
 import io.quarkus.devservices.common.JBossLoggingConsumer;
 import io.quarkus.devservices.common.Labels;
@@ -28,6 +29,10 @@ import io.quarkus.runtime.LaunchMode;
 public class MSSQLDevServicesProcessor {
 
     private static final Logger LOG = Logger.getLogger(MSSQLDevServicesProcessor.class);
+    private static final String DEV_SERVICE_LABEL = "quarkus-dev-service-mssql";
+    private static final int MSSQL_PORT = 1433;
+    private static final ContainerLocator MYSQL_DEV_MODE_CONTAINER_LOCATOR = new ContainerLocator(DEV_SERVICE_LABEL, 
+            MSSQL_PORT);
 
     /**
      * Using SA doesn't work with all collations so let's use the lowercase version instead.

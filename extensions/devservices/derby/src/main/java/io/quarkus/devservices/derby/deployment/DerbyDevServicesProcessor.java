@@ -24,6 +24,8 @@ import io.quarkus.runtime.LaunchMode;
 public class DerbyDevServicesProcessor {
 
     private static final Logger LOG = Logger.getLogger(DerbyDevServicesProcessor.class);
+    private static final String DEV_SERVICE_LABEL = "quarkus-dev-service-derby";
+    private static final int DERBY_PORT = 1527;
 
     static final int NUMBER_OF_PINGS = 10;
     static final int SLEEP_BETWEEN_PINGS = 500;
